@@ -65,6 +65,8 @@ async function populator(data){
 
         let a = 0
 
+        const data = await getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check_out}`)
+
         if( properties.find( x => x.id == e.querySelector('.id-text').textContent) == null ){
             e.parentElement.style.display = 'none'
             i++
@@ -72,11 +74,9 @@ async function populator(data){
 
         } else{
             e.parentElement.style.display = 'block'
-            const data = getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check_out}`)
+            
 
             let totalPrice = 0;
-            
-            console.log(data)
 
             data.days.forEach( e => {
                 price = totalPrice + e.day_rate

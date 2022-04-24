@@ -72,7 +72,7 @@ async function populator(data){
 
         } else{
             e.parentElement.style.display = 'block'
-            const data = await getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check-out}`)
+            const data = getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check-out}`)
 
             let totalPrice = 0;
 

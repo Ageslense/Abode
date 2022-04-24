@@ -89,6 +89,8 @@ function searcher(id, city){
                 document.querySelector('.night-no').textContent = e.calendar.days.length
 
                 if(e.calendar.days.length >= 7){
+                    document.querySelector('.week-notification').classList.remove('active')
+
                     let discount;
 
                     if(e.calendar.days.length >= 28){
@@ -112,6 +114,8 @@ function searcher(id, city){
                 }else{
                     document.getElementById('weekly-discount').classList.add('hidden')
                     document.getElementById('monthly-discount').classList.add('hidden')
+                    document.querySelector('.noresults-box ').classList.remove('active')
+                    document.querySelector('.week-notification').classList.add('active')
 
                 }
 

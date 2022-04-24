@@ -75,6 +75,8 @@ async function populator(data){
             const data = getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check_out}`)
 
             let totalPrice = 0;
+            
+            console.log(data)
 
             data.days.forEach( e => {
                 price = totalPrice + e.day_rate

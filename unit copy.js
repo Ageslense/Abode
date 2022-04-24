@@ -76,6 +76,8 @@ function searcher(id, city){
 
             bookLink(container, slug)
 
+            
+
             xhr.get(`https://connect.uplisting.io/calendar/${id}?from=${check_in}&to=${check_out}`, e => {
 
                 let total = new Number(0)
@@ -117,6 +119,8 @@ function searcher(id, city){
 
                 document.getElementById('acc-tax').textContent = '$' + Math.round(tax)
                 document.getElementById('acc-total-tax').textContent = '$' + Math.round( total + tax)
+
+                UIbooking.classList.add('active')
 
             })
 

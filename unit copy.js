@@ -111,13 +111,7 @@ function searcher(id, city){
                         document.getElementById('monthly-discount').classList.add('hidden')
 
                     }
-                }else{
-                    document.getElementById('weekly-discount').classList.add('hidden')
-                    document.getElementById('monthly-discount').classList.add('hidden')
-                    document.querySelector('.noresults-box ').classList.remove('active')
-                    document.querySelector('.week-notification').classList.add('active')
-
-                }
+                } 
 
                 const tax = (total * 0.14625) 
 
@@ -127,9 +121,23 @@ function searcher(id, city){
             })
 
         } else{
-            UIbookLink.href = `#`
-            UInoResults.classList.add('active')
+            document.getElementById('weekly-discount').classList.add('hidden')
+            document.getElementById('monthly-discount').classList.add('hidden')
             UIbooking.classList.remove('active')
+            UIbookLink.href = `#`
+
+            let no = Math.floor((Date.parse(check_out) - Date.parse(check_in)) / 86400000)
+
+            if( no < 7 ){
+
+                document.querySelector('.week-notification').classList.add('active')
+                UInoResults.classList.remove('active')
+            }else{
+                document.querySelector('.week-notification').classList.remove('active')
+                UInoResults.classList.add('active')
+
+            }
+            
         }
 
     })
@@ -156,23 +164,6 @@ function bookLink(container, slug){
         criteria += `number_of_guests=${guests}&`
     }
 
-    let no = Math.floor((Date.parse(check_out) - Date.parse(check_in)) / 86400000)
-
-    if( no < 7){
-
-        document.querySelector('.week-notification').style.display = 'block'
-        document.querySelector('.noresults-box').classList.remove('active')
-        document.querySelector('.booking-box').classList.remove('active')
-        document.querySelector('.loading-gif').style.display = 'none'
-        
-    } else{
-        
-        document.querySelector('.week-notification').style.display = 'none'
-        document.querySelector('.loading-gif').style.display = 'block'
-
-        UIbookLink.href = `https://abodebyurby.bookeddirectly.com/g/payment/new?${criteria}property_slug=${slug}`
-        UInoResults.classList.remove('active')
-        UIbooking.classList.add('active')
-    }
+    UIbookLink.href = `https://abodebyurby.bookeddirectly.com/g/payment/new?${criteria}property_slug=${slug}`
 
 }

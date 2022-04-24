@@ -82,7 +82,7 @@ async function populator(data){
 
             const price = Math.round(totalPrice / data.calendar.days.length)
 
-            e.parentElement.querySelector('city-unit-price').textContent = price
+            e.parentElement.querySelector('.city-unit-price').textContent = price
         }
 
         if(pets == true){

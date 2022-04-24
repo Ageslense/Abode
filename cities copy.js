@@ -76,11 +76,11 @@ async function populator(data){
 
             let totalPrice = 0;
 
-            data.calendar.days.forEach( e => {
+            data.days.forEach( e => {
                 price = totalPrice + e.day_rate
             })
 
-            const price = Math.round(totalPrice / data.calendar.days.length)
+            const price = Math.round(totalPrice / data.days.length)
 
             e.parentElement.querySelector('city-unit-price').textContent = price
         }

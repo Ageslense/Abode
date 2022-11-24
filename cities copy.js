@@ -34,7 +34,6 @@ if(window.sessionStorage.getItem('search') != null){
     searcher()
 } 
 
-
 //Search Function
 document.getElementById('search-btn').addEventListener('click', () => {
     searcher()
@@ -56,6 +55,7 @@ document.querySelectorAll('.unit').forEach( e => {
 
 async function populator(data){
   
+    console.log(data);
     const properties = data.data
     const UIProp = document.querySelectorAll('.unit')
 
@@ -118,18 +118,17 @@ function searcher(){
     criteria = ''
 
     if( check_in != '' ){
-        criteria += `check_in=${check_in}&`
+        criteria += `availableFrom=${check_in}&`
 
     }
     if( check_out != '' ){
-        criteria += `check_out=${check_out}&`
+        criteria += `availableTo=${check_out}&`
 
     }
+    criteria += `cityName=${city}&`
     if( guests != '' ){
-        criteria += `number_of_guests=${guests}&`
+        criteria += `accommodates=${guests}`
     }
-
-    criteria += `city=${city}`
 
     const item = {
         check_in: check_in,
@@ -155,12 +154,11 @@ function searcher(){
         
         document.querySelector('.week-notification').style.display = 'none'
         document.querySelector('.loading-gif').style.display = 'block'
+
         xhr.get(`https://connect.uplisting.io/availability?${criteria}`, data => populator(data))
+
         document.querySelector('.grid-3').style.display = 'grid'
-
     }
-
-
 }
 
 document.getElementById('checkin').setAttribute('readonly', true);
@@ -169,7 +167,6 @@ document.getElementById('checkin').setAttribute('readonly', true);
 async function getPrice(URL){
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Basic " + btoa("e4d9aa02-e2b1-4620-8706-b7979cdcff65"));
 
     var requestOptions = {
     method: 'GET',

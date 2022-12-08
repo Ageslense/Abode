@@ -50,6 +50,7 @@ if(window.sessionStorage.getItem('search') != null){
     }
     if( search.adults != undefined ){
         UIadult.value = search.adults
+        console.log(search.adults);
     }
     if( search.kids != undefined ){
         UIkids.value = search.kids 
@@ -86,46 +87,7 @@ async function populator(data){
   
     console.log(data);
     const properties = data[0].unitTypes
-    // const UIProp = document.querySelectorAll('.unit')
     const UIPropContainer = document.querySelector('.grid-3.col-wrapper')
-
-    // let i = 0
-
-    // UIProp.forEach( async e => {
-
-    //     let a = 0
-
-    //     if( properties.find( x => x.id == e.querySelector('.id-text').textContent) == null ){
-    //         e.parentElement.style.display = 'none'
-    //         i++
-    //         a++
-
-    //     } else{
-    //         e.parentElement.style.display = 'block'
-    //         const data = await getPrice(`https://connect.uplisting.io/calendar/${e.querySelector('.id-text').textContent}?from=${check_in}&to=${check_out}`)
-
-    //         let totalPrice = 0;
-
-    //         data.calendar.days.forEach( e => {
-    //             totalPrice = totalPrice + e.day_rate
-    //         })
-
-    //         const price = Math.round(totalPrice / data.calendar.days.length)
-
-    //         e.parentElement.querySelector('.city-unit-price').textContent = price
-    //     }
-
-    //     if(pets == true){
-
-    //         if(e.querySelector('.pet-friendliness').textContent.includes('Not')){
-    //             e.parentElement.style.display = 'none'
-
-    //             if( a < 1 ){
-    //                 i++
-    //             }
-    //         }
-    //     }
-    // })
 
     UIPropContainer.innerHTML = ''
 
@@ -149,14 +111,12 @@ async function populator(data){
           </div>
         </div></div><div class="col-wrapper"><div class="col-50"><div class="button"><div>Book now</div></div></div><div class="col-50"><div class="city-page__unit-price-wrap"><div class="city-unit-price-text">from $</div><div class="city-unit-price">${e.price}</div><div class="city-unit-price-text">/night</div></div></div></div><div class="id-text">${e.uid}</div><p class="pet-friendliness">"${e.features.suitablePets}"></p><a href="/unit?id=${e.uid}" class="unit-link-cover w-inline-block"></a></div>`
       })
+
+      document.querySelector('.units__no-results').style.display = 'none'
+
+    } else{
+      document.querySelector('.units__no-results').style.display = 'block'
     }
-
-    // if(i == UIProp.length){
-    //     document.querySelector('.units__no-results').style.display = 'block'
-    // } else{
-    //     document.querySelector('.units__no-results').style.display = 'none'
-    // }
-
 }
 
 function searcher(){

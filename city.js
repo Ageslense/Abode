@@ -3,7 +3,7 @@ function easyHTTP(){
     this.http = new XMLHttpRequest;
 }
 
-let properties = "https://devmos.jurny.com/api/guest/properties?"
+let properties = "https://mos.jurny.com/api/guest/properties?"
 
 easyHTTP.prototype.get = function(url, callback){
       

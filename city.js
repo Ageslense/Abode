@@ -131,8 +131,7 @@ function searcher(){
     check_in = vals[0];
     check_out = vals[1];
 
-    criteria = `availableFrom=${check_in}&availableTo=${check_out}&accommodates=${guests}`
-    // criteria = `availableFrom=${check_in}&availableTo=${check_out}&cityName=${city.toLowerCase()}&accommodates=${guests}`
+    criteria = `availableFrom=${check_in}&availableTo=${check_out}&cityName=${city.toLowerCase()}&accommodates=${guests}`
 
     const item = {
         check_in: check_in,

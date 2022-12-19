@@ -86,8 +86,13 @@ document.querySelectorAll('.unit').forEach( e => {
 async function populator(data){
   
     console.log(data);
-    const properties = data[0].unitTypes
+    let properties = []
     const UIPropContainer = document.querySelector('.grid-3.col-wrapper')
+
+    // Get the units from ALL buildings
+    data.forEach( e => {
+        e.unitTypes.forEach( a => properties.push(a))
+    })
 
     UIPropContainer.innerHTML = ''
 

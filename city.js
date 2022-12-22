@@ -102,8 +102,11 @@ async function populator(data){
           let amenitiesHtml = ''
           let pets = ''
   
-          e.amenities.forEach( a => {
-              amenitiesHtml += `<div role="listitem" class="unit__listing-am-item w-dyn-item"><div>${a.title}</div></div>`
+          e.amenities.forEach( (a, i)=> {
+            if(i < 12){
+
+                amenitiesHtml += `<div role="listitem" class="unit__listing-am-item w-dyn-item"><div>${a.title}</div></div>`
+            }
           })
   
           if(e.features.suitablePets){

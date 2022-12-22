@@ -25,6 +25,7 @@ class EasyHTTP {
 }
 
 let propertyURL = `https://mos.jurny.com/api/guest/properties`
+let resURL = `https://mos.jurny.com/api/guest/reservations`
 
 const xhr = new EasyHTTP
 // End of API
@@ -84,41 +85,19 @@ function populatePage(data){
     })
     
     let html = ''
+    let c = 0
 
     data.images.forEach( (img, i) => {
 
         if( i === 0 ){
-            document.querySelector('.unitpage-left').innerHTML = `<a href="#" class="w-inline-block w-lightbox" aria-label="open lightbox" aria-haspopup="dialog"><img src="${img.image.urls.medium}" loading="lazy" sizes="(max-width: 767px) 92vw, (max-width: 991px) 42vw, 41vw" alt="" class="unitpage__thumb-image large"><script type="application/json" class="w-json">{
-                "items": [
-                  {
-                    "_id": "example_img",
-                    "origFileName": "Gallery Image",
-                    "fileName": "Gallery Image",
-                    "fileSize": 362034,
-                    "height": 2400,
-                    "url": "${img.image.urls.medium}",
-                    "width": 3600,
-                    "type": "image"
-                  }
-                ],
-                "group": ""
-              }</script></a>`
+            document.querySelector('.unitpage-left').innerHTML = `<a href="${img.image.urls.medium}" data-lightbox="gallery">
+            <img src="${img.image.urls.medium}" loading="lazy" alt="" class="unitpage__thumb-image large">
+            </a>`
+            
         } else{
-            html += `<a href="#" class="w-inline-block w-lightbox" aria-label="open lightbox" aria-haspopup="dialog"><img src="${img.image.urls.medium}" loading="lazy" sizes="(max-width: 767px) 28vw, 13vw" alt="" class="unitpage__thumb-image"><script type="application/json" class="w-json">{
-            "items": [
-                {
-                "_id": "example_img",
-                "origFileName": "Gallery Image",
-                "fileName": "Gallery Image",
-                "fileSize": 362034,
-                "height": 2400,
-                "url": "${img.image.urls.medium}",
-                "width": 3600,
-                "type": "image"
-                }
-            ],
-            "group": ""
-            }<\/script></a>`
+            html += `<a href="${img.image.urls.medium}" data-lightbox="gallery">
+            <img src="${img.image.urls.medium}" loading="lazy" alt="" class="unitpage__thumb-image">
+            </a>`
         }
     })
 
@@ -211,9 +190,9 @@ function availabilityUpdate(data){
         }
     })
 
-    console.log(arr, a);
-
     if(a && arr.length != 0){
+
+        document.getElementById('no-of-nights').textContent = arr.length
 
         let vals = UIcheckin.value.split('/')
 
@@ -229,14 +208,11 @@ function availabilityUpdate(data){
         }, getQuote)
 
     } else{
-        // document.getElementById('weekly-discount').classList.add('hidden')
-        // document.getElementById('monthly-discount').classList.add('hidden')
         UIbooking.classList.remove('active')
 
         document.querySelector('.week-notification').classList.remove('active')
         UInoResults.classList.add('active')        
     }
-    
 }
 
 // Book
@@ -246,6 +222,9 @@ function book(){
 
     let check_in = vals[0];
     let check_out = vals[1];
+
+    document.getElementById('ui-check-in').textContent = check_in
+    document.getElementById('ui-check-out').textContent = check_out
 
     xhr.post(`${propertyURL}/${uid}/book`,{
         "adults": Number(UIadult.value),
@@ -259,8 +238,17 @@ function book(){
         "email": document.getElementById('email').value,
         "paymentIntentAmount": quote
       }, (data) => {
-        // window.location.href = data.paymentProvider
-        console.log(data);
+        book2(data);
+    })
+}
+
+// Book
+function book2(data){
+    xhr.post(`${resURL}/${data.uid}/${data.referenceCode}/pay-with/stripe/start-session`,{
+        "paymentSuccessUrl": `https://furnished.urby.com/completed-booking?ref=${data.referenceCode}`,
+        "paymentCancelUrl": "https://furnished.urby.com/payment-failed"
+      }, (data) => {
+        window.location.href = data.sessionUrl
     })
 }
 
@@ -272,33 +260,6 @@ function getQuote(e){
     // let total = new Number(0)
     
     document.getElementById('acc-total').textContent = '$' + Math.round(Number(e.rentAmount))
-    // document.querySelector('.avg-rate').textContent = Math.round(total / e.calendar.days.length)
-    // document.querySelector('.night-no').textContent = e.calendar.days.length
-
-    // if(e.calendar.days.length >= 7){
-    //     document.querySelector('.week-notification').classList.remove('active')
-
-    //     let discount;
-
-    //     if(e.calendar.days.length >= 28){
-
-    //         discount = Number(document.querySelector('#monthly-discount-pr').textContent)
-
-    //         document.getElementById('acc-monthly-discount').textContent = '-$' + Math.round((total * discount) / 100)
-    //         total = total - Math.round((total * discount) / 100)
-    //         document.getElementById('monthly-discount').classList.remove('hidden')
-    //         document.getElementById('weekly-discount').classList.add('hidden')
-
-    //     } else{
-    //         discount = Number(document.querySelector('#weekly-discount-pr').textContent)
-
-    //         document.getElementById('acc-weekly-discount').textContent = '-$' + Math.round((total * discount) / 100)
-    //         total = total - Math.round((total * discount) / 100)
-    //         document.getElementById('weekly-discount').classList.remove('hidden')
-    //         document.getElementById('monthly-discount').classList.add('hidden')
-
-    //     }
-    // } 
 
     let taxes = 0
     

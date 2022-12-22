@@ -163,9 +163,11 @@ function checkPrevSearch(){
         }
         if( search.adults != undefined ){
             UIadult.value = search.adults
+            UIadult.nextElementSibling.textContent = search.adults
         }
         if( search.kids != undefined ){
             UIkid.value = search.kids 
+            UIkid.nextElementSibling.textContent = search.kids
         }
         if( search.pet == true ){
             UIpet.checked = true

@@ -199,6 +199,9 @@ function availabilityUpdate(data){
         let check_in = vals[0];
         let check_out = vals[1];
 
+        document.getElementById('ui-check-in').textContent = check_in
+        document.getElementById('ui-check-out').textContent = check_out
+
         xhr.post(`${propertyURL}/${uid}/quote`,{
             "adults": UIadult.value,
             "children": UIkid.value,
@@ -222,9 +225,6 @@ function book(){
 
     let check_in = vals[0];
     let check_out = vals[1];
-
-    document.getElementById('ui-check-in').textContent = check_in
-    document.getElementById('ui-check-out').textContent = check_out
 
     xhr.post(`${propertyURL}/${uid}/book`,{
         "adults": Number(UIadult.value),
@@ -254,10 +254,6 @@ function book2(data){
 
 // Quote
 function getQuote(e){
-
-    console.log(e);
-
-    // let total = new Number(0)
     
     document.getElementById('acc-total').textContent = '$' + Math.round(Number(e.rentAmount))
 

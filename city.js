@@ -83,12 +83,32 @@ document.querySelectorAll('.unit').forEach( e => {
     })
 })
 
+function dateDiffInDays(a, b) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+
 async function populator(data){
   
     console.log(data);
     let properties = []
     const UIPropContainer = document.querySelector('.grid-3.col-wrapper')
 
+    let UIcheckin = document.getElementById('checkin')
+    let dates = UIcheckin.value.split("/")
+
+    // dates.forEach( e => {
+    //     let arr = e.split('-')
+
+    //     arr.splice(2, 0, arr.splice(0, 1)[0])
+    // })
+
+    difference = dateDiffInDays(dates[0], dates[1]);
+      
     // Get the units from ALL buildings
     data.forEach( e => {
         e.unitTypes.forEach( a => properties.push(a))
@@ -117,7 +137,7 @@ async function populator(data){
           <div class="w-dyn-list">
             <div role="list" class="unit__listing-am-list w-dyn-items">${amenitiesHtml}
           </div>
-        </div></div><div class="col-wrapper"><div class="col-50"><div class="button"><div>Book now</div></div></div><div class="col-50"><div class="city-page__unit-price-wrap"><div class="city-unit-price-text">from $</div><div class="city-unit-price">${e.price}</div><div class="city-unit-price-text">/night</div></div></div></div><div class="id-text">${e.uid}</div><p class="pet-friendliness">"${e.features.suitablePets}"></p><a href="/unit?id=${e.uid}" class="unit-link-cover w-inline-block"></a></div>`
+        </div></div><div class="col-wrapper"><div class="col-50"><div class="button"><div>Book now</div></div></div><div class="col-50"><div class="city-page__unit-price-wrap"><div class="city-unit-price-text">from $</div><div class="city-unit-price">${(Number(e.price)/difference).toFixed(2)}</div><div class="city-unit-price-text">/night</div></div></div></div><div class="id-text">${e.uid}</div><p class="pet-friendliness">"${e.features.suitablePets}"></p><a href="/unit?id=${e.uid}" class="unit-link-cover w-inline-block"></a></div>`
       })
 
       document.querySelector('.units__no-results').style.display = 'none'

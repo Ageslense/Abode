@@ -275,7 +275,7 @@ function getQuote(e){
 
     document.getElementById('acc-tax').textContent = '$' + Math.round(taxes)
     document.getElementById('acc-total-tax').textContent = '$' + Math.round( quote )
-    document.getElementById('acc-nightly').textContent = '$' + ((Number(quote) - taxes) / difference).toFixed(2)
+    document.getElementById('acc-nightly').textContent = '$' + ((Number(quote) - taxes) / difference).toFixed(0)
 
     UIbooking.classList.add('active')
     document.querySelector('.week-notification').classList.remove('active')

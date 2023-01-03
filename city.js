@@ -107,7 +107,10 @@ async function populator(data){
     //     arr.splice(2, 0, arr.splice(0, 1)[0])
     // })
 
-    difference = dateDiffInDays(dates[0], dates[1]);
+    const a = new Date(dates[0]),
+        b = new Date(dates[1]);
+
+    difference = dateDiffInDays(a, b);
       
     // Get the units from ALL buildings
     data.forEach( e => {

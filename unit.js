@@ -256,6 +256,12 @@ function book2(data){
 
 // Quote
 function getQuote(e){
+    let dates = UIcheckin.value.split("/")
+
+    const a = new Date(dates[0]),
+        b = new Date(dates[1]);
+
+    difference = dateDiffInDays(a, b);
     
     document.getElementById('acc-total').textContent = '$' + Math.round(Number(e.rentAmount))
 
@@ -269,8 +275,19 @@ function getQuote(e){
 
     document.getElementById('acc-tax').textContent = '$' + Math.round(taxes)
     document.getElementById('acc-total-tax').textContent = '$' + Math.round( quote )
+    document.getElementById('acc-nightly').textContent = '$' + (Number(quote) / difference).toFixed(2)
 
     UIbooking.classList.add('active')
     document.querySelector('.week-notification').classList.remove('active')
     UInoResults.classList.remove('active')        
+}
+
+// Utility
+function dateDiffInDays(a, b) {
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }

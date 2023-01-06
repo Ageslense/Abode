@@ -24,7 +24,7 @@ easyHTTP.prototype.get = function(url, callback){
 const xhr = new easyHTTP
 
 const UIproperties = document.getElementById('properties')
-const city = document.querySelector('.new-hero-title').textContent
+// const city = document.querySelector('.new-hero-title').textContent
 let UIpet = document.querySelector('#pet')
 
 let check_in 

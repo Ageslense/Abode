@@ -247,10 +247,12 @@ function book(){
 // Book
 function book2(data){
     xhr.post(`${resURL}/${data.uid}/${data.referenceCode}/pay-with/stripe/start-session`,{
-        "paymentSuccessUrl": `https://furnished.urby.com/completed-booking?ref=${data.referenceCode}`,
+        "paymentSuccessUrl": `https://furnished.urby.com/completed-booking?ref=${data.referenceCode}&uid=${data.uid}`,
         "paymentCancelUrl": "https://furnished.urby.com/payment-failed"
       }, (data) => {
         window.location.href = data.sessionUrl
+
+        console.log(data)
     })
 }
 

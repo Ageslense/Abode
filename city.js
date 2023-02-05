@@ -47,8 +47,10 @@ if(window.sessionStorage.getItem('search') != null){
 
     if( search.check_in != "" ){
         // UIcheckin.value = `${search.check_in}/${search.check_out}`
-        $('input[data-name="datefilter"]').data('daterangepicker').setStartDate('03/01/2014');
-        $('input[data-name="datefilter"]').data('daterangepicker').setEndDate('03/31/2014');
+        console.log($('input[data-name="datefilter"]'), $('input[data-name="datefilter"]').data('daterangepicker'));
+
+        $('input[data-name="datefilter"]').setStartDate(search.check_in);
+        $('input[data-name="datefilter"]').data('daterangepicker').setEndDate(search.check_out);
     }
     if( search.adults != undefined ){
         UIadult.value = search.adults

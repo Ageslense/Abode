@@ -46,11 +46,12 @@ if(window.sessionStorage.getItem('search') != null){
     let UIkids = document.querySelector('#guest-kid')
 
     if( search.check_in != "" ){
-        UIcheckin.value = `${search.check_in}/${search.check_out}`
+        // UIcheckin.value = `${search.check_in}/${search.check_out}`
+        $('input[data-name="datefilter"]').data('daterangepicker').setStartDate('03/01/2014');
+        $('input[data-name="datefilter"]').data('daterangepicker').setEndDate('03/31/2014');
     }
     if( search.adults != undefined ){
         UIadult.value = search.adults
-        console.log(search.adults);
     }
     if( search.kids != undefined ){
         UIkids.value = search.kids 

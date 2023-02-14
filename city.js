@@ -127,6 +127,7 @@ async function populator(data){
       properties.forEach( e => {
           let amenitiesHtml = ''
           let pets = ''
+          let price = (Number(e.price)/difference).toFixed(2)
   
           e.amenities.forEach( (a, i)=> {
             if(i < 12){
@@ -143,7 +144,7 @@ async function populator(data){
           <div class="w-dyn-list">
             <div role="list" class="unit__listing-am-list w-dyn-items">${amenitiesHtml}
           </div>
-        </div></div><div class="col-wrapper"><div class="col-50"><div class="button"><div>Book now</div></div></div><div class="col-50"><div class="city-page__unit-price-wrap"><div class="city-unit-price-text">from $</div><div class="city-unit-price">${(Number(e.price)/difference).toFixed(2)}</div><div class="city-unit-price-text">/night</div></div></div></div><div class="id-text">${e.uid}</div><p class="pet-friendliness">"${e.features.suitablePets}"></p><a href="/unit?id=${e.uid}" class="unit-link-cover w-inline-block"></a></div>`
+        </div></div><div class="col-wrapper"><div class="col-50"><div class="button"><div>Book now</div></div></div><div class="col-50"><div class="city-page__unit-price-wrap"><div class="city-unit-price-text">from $</div><div class="city-unit-price">${price}</div><div class="city-unit-price-text">/night</div></div></div></div><div class="id-text">${e.uid}</div><p class="pet-friendliness">"${e.features.suitablePets}"></p><a href="/unit?id=${e.uid}" class="unit-link-cover w-inline-block"></a></div>`
       })
 
       document.querySelector('.units__no-results').style.display = 'none'

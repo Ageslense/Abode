@@ -91,8 +91,6 @@ function dateDiffInDays(a, b) {
     // Discard the time and time-zone information.
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-    console.log(a, b, utc1, utc2, a.getFullYear(), a.getMonth(), a.getDate());
   
     return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }
@@ -131,8 +129,6 @@ async function populator(data){
           let pets = ''
           let price = Number(e.price)/difference
           let price2 = price.toFixed(2)
-
-          console.log(price, price2, e.price, Number(e.price), difference);
   
           e.amenities.forEach( (a, i)=> {
             if(i < 12){

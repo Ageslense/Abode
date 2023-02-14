@@ -129,6 +129,8 @@ async function populator(data){
           let pets = ''
           let price = Number(e.price)/difference
           let price2 = price.toFixed(2)
+
+          console.log(price, price2, e.price, Number(e.price), difference);
   
           e.amenities.forEach( (a, i)=> {
             if(i < 12){

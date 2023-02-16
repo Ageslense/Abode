@@ -250,7 +250,7 @@ function book2(data){
         "paymentSuccessUrl": `https://furnished.urby.com/completed-booking?ref=${data.referenceCode}&uid=${data.uid}`,
         "paymentCancelUrl": "https://furnished.urby.com/payment-failed"
       }, (data) => {
-        //window.location.href = data.sessionUrl
+        window.location.href = data.sessionUrl
 
         console.log(data)
     })

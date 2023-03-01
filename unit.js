@@ -204,12 +204,15 @@ function availabilityUpdate(data){
         document.getElementById('ui-check-in').textContent = check_in
         document.getElementById('ui-check-out').textContent = check_out
 
+        const promo = document.getElementById('promo-used').value
+
         xhr.post(`${propertyURL}/${uid}/quote`,{
             "adults": UIadult.value,
             "children": UIkid.value,
             "withPets": UIpet.checked,
             "fromDate": check_in,
-            "toDate": check_out
+            "toDate": check_out,
+            "coupon": promo
         }, getQuote)
 
     } else{
@@ -228,6 +231,8 @@ function book(){
     let check_in = vals[0];
     let check_out = vals[1];
 
+    const promo = document.getElementById('promo-used').value
+
     xhr.post(`${propertyURL}/${uid}/book`,{
         "adults": Number(UIadult.value),
         "children": Number(UIkid.value),
@@ -238,7 +243,9 @@ function book(){
         "lastName": document.getElementById('Lname').value,
         "phone": document.getElementById('phone').value,
         "email": document.getElementById('email').value,
-        "paymentIntentAmount": quote
+        "paymentIntentAmount": quote,
+        "coupon": promo
+
       }, (data) => {
         book2(data);
     })

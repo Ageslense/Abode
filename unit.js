@@ -243,7 +243,9 @@ function book(){
         "fromDate": check_in,
         "toDate": check_out,
         "coupon": promo
-    }, () => {
+    }, (data) => {
+
+        quote = data.scheduledPayments[0].amountToBePaid
 
         xhr.post(`${propertyURL}/${uid}/book`,{
             "adults": Number(UIadult.value),

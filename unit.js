@@ -224,14 +224,26 @@ function availabilityUpdate(data){
 }
 
 // Book
-function book(){
+async function book(){
     
     let vals = UIcheckin.value.split('/')
 
     let check_in = vals[0];
     let check_out = vals[1];
 
+    document.getElementById('ui-check-in').textContent = check_in
+    document.getElementById('ui-check-out').textContent = check_out
+
     const promo = document.getElementById('promo-used').value
+
+    const quote = await xhr.post(`${propertyURL}/${uid}/quote`,{
+        "adults": UIadult.value,
+        "children": UIkid.value,
+        "withPets": UIpet.checked,
+        "fromDate": check_in,
+        "toDate": check_out,
+        "coupon": promo
+    })
 
     xhr.post(`${propertyURL}/${uid}/book`,{
         "adults": Number(UIadult.value),

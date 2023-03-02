@@ -224,7 +224,7 @@ function availabilityUpdate(data){
 }
 
 // Book
-async function book(){
+function book(){
     
     let vals = UIcheckin.value.split('/')
 
@@ -236,31 +236,33 @@ async function book(){
 
     const promo = document.getElementById('promo-used').value
 
-    const quote = await xhr.post(`${propertyURL}/${uid}/quote`,{
+    xhr.post(`${propertyURL}/${uid}/quote`,{
         "adults": UIadult.value,
         "children": UIkid.value,
         "withPets": UIpet.checked,
         "fromDate": check_in,
         "toDate": check_out,
         "coupon": promo
+    }, () => {
+
+        xhr.post(`${propertyURL}/${uid}/book`,{
+            "adults": Number(UIadult.value),
+            "children": Number(UIkid.value),
+            "withPets": UIpet.checked,
+            "fromDate": check_in,
+            "toDate": check_out,
+            "firstName": document.getElementById('Fname').value,
+            "lastName": document.getElementById('Lname').value,
+            "phone": document.getElementById('phone').value,
+            "email": document.getElementById('email').value,
+            "paymentIntentAmount": quote,
+            "coupon": promo
+    
+          }, (data) => {
+            book2(data);
+        })
     })
 
-    xhr.post(`${propertyURL}/${uid}/book`,{
-        "adults": Number(UIadult.value),
-        "children": Number(UIkid.value),
-        "withPets": UIpet.checked,
-        "fromDate": check_in,
-        "toDate": check_out,
-        "firstName": document.getElementById('Fname').value,
-        "lastName": document.getElementById('Lname').value,
-        "phone": document.getElementById('phone').value,
-        "email": document.getElementById('email').value,
-        "paymentIntentAmount": quote,
-        "coupon": promo
-
-      }, (data) => {
-        book2(data);
-    })
 }
 
 // Book
